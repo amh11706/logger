@@ -1,6 +1,9 @@
 package logger
 
-import "log"
+import (
+	"log"
+	"runtime/debug"
+)
 
 var infoColor = []interface{}{"\x1b[32m[INFO]\x1b[0m"}
 var errorColor = []interface{}{"\x1b[31m[ERROR]\x1b[0m"}
@@ -11,6 +14,14 @@ func Info(args ...interface{}) {
 
 func Error(args ...interface{}) {
 	log.Println(append(errorColor, args...)...)
+}
+
+func CheckStack(err error) bool {
+	failed := Check(err)
+	if failed {
+		debug.PrintStack()
+	}
+	return failed
 }
 
 func Check(err error) bool {
