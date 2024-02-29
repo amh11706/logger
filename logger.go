@@ -4,6 +4,9 @@ import (
 	"log"
 	"os"
 	"runtime/debug"
+	"time"
+
+	"github.com/amh11706/qmail"
 )
 
 var infoColor = []interface{}{"\x1b[32m[INFO]\x1b[0m"}
@@ -18,11 +21,24 @@ func Error(args ...interface{}) {
 	errorPrinter.Println(append(errorColor, args...)...)
 }
 
+var crashReportDebounce = make(chan struct{}, 1)
+
 func CheckStack(err error) bool {
 	failed := Check(err)
-	if failed {
-		debug.PrintStack()
+	if !failed {
+		return failed
 	}
+	stack := string(debug.Stack())
+	Error(stack)
+	go func() {
+		if len(crashReportDebounce) > 0 {
+			return
+		}
+		Check(qmail.SendCrashReport(err, stack))
+		<-crashReportDebounce
+		time.Sleep(5 * time.Minute)
+		crashReportDebounce <- struct{}{}
+	}()
 	return failed
 }
 

@@ -1,0 +1,4 @@
+github.com/amh11706/qmail v0.0.0-20240229151237-2c13efa09359 h1:ixMvcqbrLipwwolRhheZGqQDrB3v0Dy4TKl/h2I8J24=
+github.com/amh11706/qmail v0.0.0-20240229151237-2c13efa09359/go.mod h1:gW3mbtxQNjOQCopO5hrJ/8aGuTbMA+bduHW8eIkd7mw=
+github.com/domodwyer/mailyak v3.1.1+incompatible h1:oPtXn3+56LEFbdqH0bpuPRsqtijW9l2POpQe9sTUsSI=
+github.com/domodwyer/mailyak v3.1.1+incompatible/go.mod h1:5NNYkn9hxcdNEOmmMx0yultN5VLorZQ+AWQo9iya+UY=
