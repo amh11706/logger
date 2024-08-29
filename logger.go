@@ -37,10 +37,10 @@ func CheckStack(err error) bool {
 		if CrashHandler == nil {
 			return
 		}
-		Check(CrashHandler(err, stack))
-		<-crashReportDebounce
-		time.Sleep(5 * time.Minute)
 		crashReportDebounce <- struct{}{}
+		Check(CrashHandler(err, stack))
+		time.Sleep(5 * time.Minute)
+		<-crashReportDebounce
 	}()
 	return failed
 }
