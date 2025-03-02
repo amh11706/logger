@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"runtime/debug"
@@ -59,4 +60,14 @@ func CheckP(err error, prefix string) bool {
 		return true
 	}
 	return false
+}
+
+func Pluralize(count int, singular string, plural string) string {
+	if count == 0 {
+		return fmt.Sprintf("no %s", plural)
+	}
+	if count == 1 {
+		return fmt.Sprintf("%d %s", count, singular)
+	}
+	return fmt.Sprintf("%d %s", count, plural)
 }
